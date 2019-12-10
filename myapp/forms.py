@@ -4,7 +4,7 @@ from .models import Resultado
 
 
 class TrabalhoAlgebraForm(forms.Form):
-    matriz = forms.CharField(widget=forms.Textarea)
+    matriz = forms.CharField(widget=forms.Textarea(attrs={'placeholder':'[\n[a1,a2,a3],\n[b1,b2,b3],\n[c1,c2,c3]\n]'}))
     determinante = forms.BooleanField(required=False)
     traco = forms.BooleanField(required=False)
     transposta = forms.BooleanField(required=False)

@@ -1,7 +1,56 @@
 {% extends 'base.html' %}
 {% block title%} Resultados {% endblock %}
 {% block content %}
-<h1>Trabalho de Algebra 2</h1>
-    <p>Feito por: Arthur Bindá</p>
+<h1>Trabalho de Álgebra 2</h1>
+    <p>
+        Este trabalho é uma ferramenta para calcular as seguintes funções de uma matriz qualquer: <b>Determinante, Traço, Transposta, Matriz Inversa, Autovalores, Autovetores e Matriz Diagonal</b>.
+    </p>
+
+    <hr />
+    <h3>Determinante</h3>
+    <p>
+        O cálculo do determinante foi feito utilizando o método de cálculo por cofatores.
+    </p>
+
+    <hr />
+    <h3>Traço</h3>
+    <p>
+        O traço de uma matriz é o resultado da soma de todos os elementos da sua diagonal principal.
+    </p>
+
+    <hr />
+    <h3>Matriz transposta</h3>
+    <p>
+        A matriz transposta de uma matriz A, é uma matriz B na qual as suas colunas correspondem às linhas da matriz A. Para esta função foi utilizado o módulo numpy.
+    </p>
+
+    <hr />
+    <h3>Matriz inversa</h3>
+    <p>
+        A matriz inversa de uma matriz A é uma matriz B que quando multiplicada por A, o resultado é a matriz identidade. Para esta função foi utilizado o módulo numpy.
+    </p>
+
+    <hr />
+    <h3>Polinômio característico</h3>
+    <p>
+        O Método de Leverrier-Faddev foi o utilizado para calcular os coeficientes do polinomios característico de uma matriz. O qual define uma sequência de matrizes A1,A2… An; q1,q2… qn; B1,B2… Bn. Onde A = ABn-1, qn= traço(An/n) e B = An - qn. E os termos qk obtidos na sequência, são os coeficientes do polinômio característico.
+    </p>
+
+    <hr />
+    <h3>Autovalores</h3>
+    <p>
+        O método de Francis (ou Método QR) foi o utilizado para calcular os autovalores. Ele consiste em construir uma sequência de matrizes A1, A2, . . . do seguinte modo: decompomos A = A1 no produto Q1R1 onde Q1 é ortogonal e R1 é
+triangular superior. Então, A1 = Q1.R1. Agora, multiplicamos as duas matrizes na ordem inversa e
+formamos a matriz A2 = R1.Q1, e decompomos, a seguir, a matriz A2 no produto Q2.R2 e assim por
+diante. O processo termina quando o elemento de maior valor absoluto da matriz Ak, (abaixo da diagonal
+principal), for menor que , onde  é uma precisão pré-fixada. E então os autovalores estão na diagonal principal da matriz final.
+
+    </p>
+
+    <hr />
+    <h3>Matriz diagonal</h3>
+    <p>
+        O cálculo da matriz diagonal se resume em calcular os autovalores da matriz e posicioná-los na diagonal principal de uma matriz nula de mesma dimensão da matriz original.
+    </p>
 
 {% endblock %}

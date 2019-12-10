@@ -53,40 +53,98 @@ def resultado_detail(request):
 
 def processa_request(request):
     matriz = eval(request.matriz)
-    request.matriz = matriz
+    matriz = numpy.array(matriz, dtype=float)
+    macaco = numpy.array(matriz, dtype=float)
+    print(matriz)
+    request.matriz = str(matriz)
 
     if request.determinante:
-        determinante = numpy.linalg.det(matriz)
+        determinante = determinantOfMatrix(matriz)
         request.determinante = determinante
 
     if request.traco:
-        request.traco = traco(matriz)
+        request.traco = traco(macaco)
 
     if request.transposta:
-        request.transposta = matrizTransposta(matriz)
+        aux = array(macaco).T
+        request.transposta = str(aux)
 
     if request.inversa:
-        aux = numpy.linalg.inv(matriz)
+        aux = numpy.linalg.inv(macaco)
         request.inversa = str(aux)
 
     if request.polinomio_caracteristico:
-        request.polinomio_caracteristico = polinomioCaracteristico(matriz)
+        request.polinomio_caracteristico = polinomioCaracteristico(macaco)
 
     if request.autovalores:
-        request.autovalores = QR(matriz)
+        request.autovalores = QR(macaco)
 
     if request.matriz_diagonal:
-        request.matriz_diagonal = matrizDiagonal(matriz)
+        aux = matrizDiagonal(macaco)
+        request.matriz_diagonal = str(aux)
 
     return request
 
 
 # XXXXXXXXXXXXXX APENAS FUNCOES MATERMATICAS PARA BAIXO XXXXXXXXXX
+def determinantOfMatrix(mat):
+    n = len(mat)
+    temp = [0] * n
+    total = 1
+    det = 1
 
-def traco(matrix):
-    n = len(matrix)
-    assert n == len(matrix[0])
-    return sum(matrix[i][i] for i in range(n))
+    # loop iterando pelos elementos em diagonal
+    for i in range(0, n):
+        index = i
+
+        # Pega os valores da coluna exterior procurando por uma que o valor nao é zero
+        while (mat[index][i] == 0 and index < n):
+            index += 1
+
+        if (index == n):  # se nao encontramos nenhum valor diferente de zero
+            # interrompe esse laço e recomeça um novo laço la no for
+            continue
+
+        if (index != i):
+            # troco de lugar o index e o valor da linha
+            for j in range(0, n):
+                mat[index][j], mat[i][j] = mat[i][j], mat[index][j]
+
+                # troca o sinal do determinante ao trocar de linha
+            det = det * int(pow(-1, index - i))
+
+            # guardando os valores da diagonal
+        for j in range(0, n):
+            temp[j] = mat[i][j]
+
+            # fazendo a transversal dos valores embaixo da matriz principal
+        for j in range(i + 1, n):
+            num1 = temp[i]  # valor da matriz principal
+            num2 = mat[j][i]  # valor da linha nao principal
+
+            # fazendo a transversal das outras linhas
+            # e multiplicando as linhas
+            for k in range(0, n):
+                mat[j][k] = (num1 * mat[j][k]) - (num2 * temp[k])
+
+            total = total * num1  # Det(kA)=kDet(A);
+
+    # multiplicando a transversal para pegar o determinante
+    for i in range(0, n):
+        det = det * mat[i][i]
+
+    return int(det / total)  # Det(kA)/k=Det(A);
+
+def traco(p_matriz):
+    print(p_matriz)
+    traco = 0
+    n = len(p_matriz)
+    for i in range(n):
+        for j in range(n):
+            if (i == j):
+                print(p_matriz[i][j])
+                traco += p_matriz[i][j]
+    return traco
 
 
 def matrizTransposta(matriz):
