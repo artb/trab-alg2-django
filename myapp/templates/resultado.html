@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+{% block title%} Resultados {% endblock %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-
-<body>
+{% block content %}
     <div class="page">
         <div class="header">
             <div class="title">
@@ -15,7 +10,6 @@
                 </h1>
             </div>
         </div>
-        <button type="button" onclick="window.location.href='/'">Ir para a home</button>
         <hr />
         <div class="clear">
         </div>
@@ -67,13 +61,13 @@
                 <br />
                 <hr />
             {% endif %}
-
+<!-- 
             {% if object.autovetores != False %}
                 <h4>Autovetores:</h4>
                 <pre>{{ object.autovetores }}</pre>
                 <br />
                 <hr />
-            {% endif %}
+            {% endif %} -->
 
             {% if object.matriz_diagonal != False %}
                 <h4>Matriz diagonal:</h4>
@@ -89,7 +83,4 @@
         </div>
         <br />
     </div>
-
-</body>
-
-</html>
+{% endblock %}
