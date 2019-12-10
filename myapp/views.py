@@ -7,6 +7,9 @@ from numpy import *
 
 
 # Create your views here.
+def sobre(request):
+    return render(request, 'sobre.html')
+
 def homepage(request):
     form = TrabalhoAlgebraForm()
     return render(request, 'form.html', {'form': form})
