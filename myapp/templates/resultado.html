@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <div class="page">
+        <div class="header">
+            <div class="title">
+                <h1>
+                    Página de resultados
+                </h1>
+            </div>
+        </div>
+        <button type="button" onclick="window.location.href='/'">Ir para a home</button>
+        <hr />
+        <div class="clear">
+        </div>
+        <div class="main">
+
+            <h4>Matriz de entrada:</h4>
+            <pre>{{ object.matriz }}</pre>
+            <br />
+            <hr />
+
+            {% if object.determinante != False %}
+                <h4>Determinante:</h4>
+                <pre>{{ object.determinante }}</pre>
+                <br />
+                <hr />
+            {% endif %}
+
+            {% if object.traco != False %}
+                <h4>Traco:</h4>
+                <pre>{{ object.traco }}</pre>
+                <br />
+                <hr />
+            {% endif %}
+
+            {% if object.transposta != False %}
+                <h4>Transposta:</h4>
+                <pre>{{ object.transposta }}</pre>
+                <br />
+                <hr />
+            {% endif %}
+
+            {% if object.inversa != False %}
+                <h4>Inversa:</h4>
+                <pre>{{ object.inversa }}</pre>
+                <br />
+                <hr />
+            {% endif %}
+
+            {% if object.polinomio_caracteristico != False %}
+                <h4>Polinômio característico:</h4>
+                <pre>{{ object.polinomio_caracteristico }}</pre>
+                <br />
+                <hr />
+            {% endif %}
+
+            {% if object.autovalores != False %}
+                <h4>Autovalores:</h4>
+                <pre>{{ object.autovalores }}</pre>
+                <br />
+                <hr />
+            {% endif %}
+
+            {% if object.autovetores != False %}
+                <h4>Autovetores:</h4>
+                <pre>{{ object.autovetores }}</pre>
+                <br />
+                <hr />
+            {% endif %}
+
+            {% if object.matriz_diagonal != False %}
+                <h4>Matriz diagonal:</h4>
+                <pre>{{ object.matriz_diagonal }}</pre>
+                <br />
+                <hr />
+            {% endif %}
+
+            <hr />
+            <br />
+        </div>
+        <div class="clear">
+        </div>
+        <br />
+    </div>
+
+</body>
+
+</html>
