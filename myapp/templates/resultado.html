@@ -6,7 +6,7 @@
         <div class="header">
             <div class="title">
                 <h1>
-                    Página de resultados
+                    Calculadora de Álgebra: Resultados
                 </h1>
             </div>
         </div>
@@ -17,48 +17,41 @@
 
             <h4>Matriz de entrada:</h4>
             <pre>{{ object.matriz }}</pre>
-            <br />
             <hr />
 
             {% if object.determinante != False %}
                 <h4>Determinante:</h4>
                 <pre>{{ object.determinante }}</pre>
-                <br />
                 <hr />
             {% endif %}
 
             {% if object.traco != False %}
-                <h4>Traco:</h4>
+                <h4>Traço:</h4>
                 <pre>{{ object.traco }}</pre>
-                <br />
                 <hr />
             {% endif %}
 
             {% if object.transposta != False %}
-                <h4>Transposta:</h4>
+                <h4>Matriz transposta:</h4>
                 <pre>{{ object.transposta }}</pre>
-                <br />
                 <hr />
             {% endif %}
 
             {% if object.inversa != False %}
-                <h4>Inversa:</h4>
+                <h4>Matriz inversa:</h4>
                 <pre>{{ object.inversa }}</pre>
-                <br />
                 <hr />
             {% endif %}
 
             {% if object.polinomio_caracteristico != False %}
                 <h4>Polinômio característico:</h4>
                 <pre>{{ object.polinomio_caracteristico }}</pre>
-                <br />
                 <hr />
             {% endif %}
 
             {% if object.autovalores != False %}
                 <h4>Autovalores:</h4>
                 <pre>{{ object.autovalores }}</pre>
-                <br />
                 <hr />
             {% endif %}
 <!-- 
@@ -72,7 +65,6 @@
             {% if object.matriz_diagonal != False %}
                 <h4>Matriz diagonal:</h4>
                 <pre>{{ object.matriz_diagonal }}</pre>
-                <br />
                 <hr />
             {% endif %}
 
