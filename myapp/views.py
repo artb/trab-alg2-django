@@ -27,11 +27,10 @@ def create(request):
             inversa = form.cleaned_data['inversa']
             polinomio_caracteristico = form.cleaned_data['polinomio_caracteristico']
             autovalores = form.cleaned_data['autovalores']
-            autovetores = form.cleaned_data['autovetores']
             matriz_diagonal = form.cleaned_data['matriz_diagonal']
             t = Resultado(id=1, matriz=matriz, determinante=determinante, traco=traco, transposta=transposta,
                           inversa=inversa, polinomio_caracteristico=polinomio_caracteristico, autovalores=autovalores,
-                          autovetores=autovetores, matriz_diagonal=matriz_diagonal)
+                          matriz_diagonal=matriz_diagonal)
             t.save()
             return HttpResponseRedirect("/resultado/")
 

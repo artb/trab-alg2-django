@@ -11,7 +11,6 @@ class TrabalhoAlgebraForm(forms.Form):
     inversa = forms.BooleanField(required=False)
     polinomio_caracteristico = forms.BooleanField(required=False)
     autovalores = forms.BooleanField(required=False)
-    autovetores = forms.BooleanField(required=False)
     matriz_diagonal = forms.BooleanField(required=False)
 
 
@@ -26,6 +25,5 @@ class ResultadoForm(forms.ModelForm):
             'inversa',
             'polinomio_caracteristico',
             'autovalores',
-            'autovetores',
             'matriz_diagonal'
         ]

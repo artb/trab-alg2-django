@@ -22,7 +22,6 @@ class Migration(migrations.Migration):
                 ('inversa', models.BooleanField()),
                 ('polinomio_caracteristico', models.BooleanField()),
                 ('autovalores', models.BooleanField()),
-                ('autovetores', models.BooleanField()),
                 ('matriz_diagonal', models.BooleanField()),
             ],
         ),
