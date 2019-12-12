@@ -10,6 +10,7 @@ from numpy import *
 def sobre(request):
     return render(request, 'sobre.html')
 
+
 def homepage(request):
     form = TrabalhoAlgebraForm()
     return render(request, 'form.html', {'form': form})
@@ -27,10 +28,11 @@ def create(request):
             inversa = form.cleaned_data['inversa']
             polinomio_caracteristico = form.cleaned_data['polinomio_caracteristico']
             autovalores = form.cleaned_data['autovalores']
+            autovetores = form.cleaned_data['autovetores']
             matriz_diagonal = form.cleaned_data['matriz_diagonal']
             t = Resultado(id=1, matriz=matriz, determinante=determinante, traco=traco, transposta=transposta,
                           inversa=inversa, polinomio_caracteristico=polinomio_caracteristico, autovalores=autovalores,
-                          matriz_diagonal=matriz_diagonal)
+                          autovetores=autovetores, matriz_diagonal=matriz_diagonal)
             t.save()
             return HttpResponseRedirect("/resultado/")
 
@@ -74,10 +76,14 @@ def processa_request(request):
         request.inversa = str(aux)
 
     if request.polinomio_caracteristico:
-        request.polinomio_caracteristico = polinomioCaracteristico(macaco)
+        request.polinomio_caracteristico = beutifyPolinomio(macaco, len(macaco))
 
     if request.autovalores:
         request.autovalores = QR(macaco)
+
+    if request.autovetores:
+
+        request.autovetores = autovetores(macaco)
 
     if request.matriz_diagonal:
         aux = matrizDiagonal(macaco)
@@ -135,15 +141,16 @@ def determinantOfMatrix(mat):
 
     return int(det / total)  # Det(kA)/k=Det(A);
 
+
 def traco(p_matriz):
-    print(p_matriz)
     traco = 0
     n = len(p_matriz)
     for i in range(n):
-        for j in range(n):
-            if (i == j):
-                print(p_matriz[i][j])
-                traco += p_matriz[i][j]
+        traco += p_matriz[i][i]
+        # for j in range(n):
+        #     if (i == j):
+        #         print(p_matriz[i][j])
+        #         traco += p_matriz[i][j]
     return traco
 
 
@@ -173,6 +180,8 @@ def polinomioCaracteristico(matriz):
         c.append(-traco(B) / i)
         somaCoeficientes(B, n, c[i])
         B = dot(A, B)
+    for aux in c:
+        aux = aux * -1
     return c
 
 
@@ -213,10 +222,91 @@ def QR(A):
         av.append(A[i][i])
     return av
 
+
 def matrizDiagonal(A):
-	n = len(A)
-	matriz = zeros((n,n))
-	autovalores = linalg.eig(A)[0]
-	for i in range(n):
-		matriz[i][i] = autovalores[i]
-	return matriz
+    n = len(A)
+    matriz = zeros((n, n))
+    autovalores = linalg.eig(A)[0]
+    for i in range(n):
+        matriz[i][i] = autovalores[i]
+    return matriz
+
+
+def naoNulo(v, n):
+    for i in range(n):
+        if v[i] != 0:
+            return 1
+    return 0
+
+
+def F_mais_tr(F, n, p):
+    for i in range(n):
+        F[i][i] += p
+
+
+def leverrierFaddeev(A, n):
+    F = array(A)
+    polinomio = [1]
+    matrizes = []
+    for k in range(1, n + 1):
+        polinomio.append(-traco(F) / k)
+        F_mais_tr(F, n, polinomio[k])
+        matrizes.append(array(F.T))
+        F = dot(A, F)
+    return (polinomio, array(matrizes))
+
+
+def autovetores(A):
+    n = len(A)
+    matrizes = leverrierFaddeev(A, n)[1]
+    autovalores = linalg.eig(A)[0]
+    autovetores = zeros((n, n))
+    I = identity(n)
+    cont = 0
+    linha = 0
+
+    while cont < n and linha < n:
+        v = array(I[linha])
+        for i in range(n - 1):
+            v = autovalores[cont] * v + matrizes[i][linha]
+        if naoNulo(v, n):
+            autovetores[cont] = v
+            cont += 1
+        else:
+            linha += 1
+            cont = 0
+
+    eigenvectors = []
+    for i in range(n):
+        eigenvectors.append((autovalores[i], autovetores[i]))
+    return eigenvectors
+
+def beutifyPolinomio(A,n):
+
+    p = leverrierFaddeev(A, n)[0]
+
+    polinomio = '1.0λ**' + str(n) + '   '
+    exp = n - 1
+    for i in range(1, n):
+        if p[i] > -1:
+            polinomio += '+' + str(p[i]) + 'λ**' + str(exp) + '   '
+        else:
+            polinomio += str(p[i]) + 'λ**' + str(exp) + '   '
+        exp -= 1
+    if p[n] > -1:
+        polinomio += '+' + str(p[n])
+    else:
+        polinomio += str(p[n])
+
+    print(polinomio)
+    return(polinomio)
+
+def beutifyAutovetor(A,n):
+    av = autovetores(A, n)
+    valores = ''
+    for i in range(n):
+        valores += 'λ' + str(i + 1) + ' = ' + str(round(av[i], 2)) + '\n'
+
+    return valores
+
+

@@ -8,5 +8,6 @@ class Resultado(models.Model):
         inversa = models.BooleanField()
         polinomio_caracteristico = models.BooleanField()
         autovalores = models.BooleanField()
+        autovetores = models.BooleanField(default=False)
         matriz_diagonal = models.BooleanField()
 
